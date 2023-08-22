@@ -1,0 +1,1 @@
+install(FILES common.h logger.h logging.h logstream.h utility.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ara/log)

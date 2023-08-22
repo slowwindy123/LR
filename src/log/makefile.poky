@@ -1,0 +1,51 @@
+TARGET=log
+DEVHOME=..
+
+DESTDIR=$(DEVHOME)/lib
+DEFINES=-std=c++14
+INCLUDEPATH=-I. -I$(DEVHOME)/inc  -I$(DEVHOME)/include
+LIBPATH=-L$(DEVHOME)/lib
+LIBS=-ldlt -ljsconfig
+
+CFLAGS="-fPIC"
+
+CXX_OBJ= $(CXX) $(CFLAGS)  -c $(DEFINES)  $(INCLUDEPATH)
+
+Objects=logger.o \
+    logging.o \
+	logmanager.o \
+	logstream.o \
+	timesync.o
+
+
+$(TARGET) : $(Objects)
+	$(CXX) -shared -o $(DESTDIR)/lib$(TARGET).so $(Objects) $(LIBPATH) $(LIBS)
+
+
+
+.PHONY : clean 
+clean : 
+	-rm $(Objects)
+	-rm $(DESTDIR)/lib$(TARGET).so
+
+
+.PHONY : test
+test:
+	@echo test begin...
+	@echo $(Objects)
+	@echo test end...
+
+logger.o : logger.cpp $(DEVHOME)/inc/ara/log/logger.h
+	$(CXX_OBJ) logger.cpp
+
+logging.o : logging.cpp $(DEVHOME)/inc/ara/log/logging.h
+	$(CXX_OBJ) logging.cpp
+
+logmanager.o : logmanager.cpp $(DEVHOME)/inc/ara/log/logmanager.h
+	$(CXX_OBJ) logmanager.cpp
+
+logstream.o : logstream.cpp $(DEVHOME)/inc/ara/log/logstream.h
+	$(CXX_OBJ) logstream.cpp
+
+timesync.o : timesync.cpp timesync.h
+	$(CXX_OBJ) timesync.cpp

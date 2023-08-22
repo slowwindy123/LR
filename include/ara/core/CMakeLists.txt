@@ -1,0 +1,1 @@
+install(FILES array.h error_code.h  error_domain.h  core_error_domain.h  exception.h  instance_specifier.h  optional.h  result.h span.h string_view.h string.h utility.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ara/core)
